@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 import  imutils
+import random
+
 
 img = cv2.imread('Test_Image.jpeg')
 img = imutils.resize(img, height=500)
@@ -33,7 +35,11 @@ for c in cnt:
     #
     # cv2.drawContours(canvas, [approx], 0, (0, 255, 0), 3)
     if len(approx) ==4:
-        cv2.drawContours(canvas, [approx], 0, (0, 0, 255), 2)
+        rect = cv2.boundingRect(c)
+        x, y, w, h = [r for r in rect]
+        b, g = random.sample(range(0, 255), 2)
+        cv2.rectangle(canvas, (x, y), ((x + w), (y + h)), (b, g, 255), 3)
+        # cv2.drawContours(canvas, [approx], 0, (0, 0, 255), 2)
 
 # cv2.imshow('dilation', img_dil)
 cv2.imshow('dilation2', canvas)
